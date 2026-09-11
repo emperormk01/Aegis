@@ -1,6 +1,6 @@
 {
-  "name": "@emperormk01/aegis-cli",
-  "version": "0.1.4",
+  "name": "aegis-scan",
+  "version": "0.1.5",
   "description": "Aegis - security audit CLI (Go) - S3, headers, race, JS secrets, JWT, takeover, nuclei, fuzz",
   "bin": {
     "aegis": "./bin/aegis.js"
