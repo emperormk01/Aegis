@@ -1,5 +1,4 @@
-aegis
-*.exe
-/dist/
-__pycache__/
-.venv/
+/aegis
+/aegis-*
+/bin/aegis
+/bin/aegis.exe

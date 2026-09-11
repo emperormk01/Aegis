@@ -8,7 +8,32 @@ Security audit CLI in Go. Combines three repos into one tool:
 
 Single static binary, full corpus embedded.
 
-## Install
+## Install - multiple options
+
+### Option 1: npm (with binary)
+
+```bash
+npm install -g @emperormk01/aegis
+# or without install
+npx @emperormk01/aegis --help
+# or
+bunx @emperormk01/aegis --help
+```
+
+### Option 2: GitHub Releases (single binary)
+
+```bash
+# One-liner (linux/mac)
+curl -fsSL https://raw.githubusercontent.com/emperormk01/Aegis/main/install.sh 2>/dev/null | bash || go install github.com/emperormk01/Aegis@latest
+
+# Direct download (pick platform)
+curl -L https://github.com/emperormk01/Aegis/releases/latest/download/aegis-linux-x64 -o /usr/local/bin/aegis && chmod +x /usr/local/bin/aegis
+# also: aegis-linux-arm64, aegis-darwin-x64, aegis-darwin-arm64
+```
+
+Releases build only on `v*` tags. Commits without tags do nothing.
+
+### Option 3: From source (Go)
 
 ```bash
 go install github.com/emperormk01/Aegis@latest
