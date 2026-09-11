@@ -32,11 +32,16 @@ var scanCmd = &cobra.Command{
 		stack := checks.DetectStack(url, 8*time.Second)
 		subs := checks.EnumerateSubdomains(domain, nil)
 		ports := checks.ScanPorts(domain, nil, 1*time.Second)
+		takeover := checks.CheckTakeover(subs, 8*time.Second)
+		disclosure := checks.CheckDisclosure(url, 8*time.Second)
+		nuclei := checks.RunNuclei(url, 8*time.Second)
+		fuzz := checks.Fuzz(url, 8*time.Second, nil)
 
 		if scanJSON {
 			out := map[string]interface{}{
 				"target": target, "headers": hdr, "sensitive": sens,
 				"stack": stack, "subdomains": subs, "ports": ports,
+				"takeover": takeover, "disclosure": disclosure, "nuclei": nuclei, "fuzz": fuzz,
 			}
 			b, _ := json.MarshalIndent(out, "", "  ")
 			fmt.Println(string(b))
@@ -68,6 +73,34 @@ var scanCmd = &cobra.Command{
 				tag = "EXPOSED"
 			}
 			fmt.Printf("  %s -> %d %s\n", r.Path, r.Status, tag)
+		}
+		fmt.Println("\n--- Disclosure ---")
+		if len(disclosure) == 0 {
+			fmt.Println("  [OK] no disclosure found")
+		}
+		for _, d := range disclosure {
+			fmt.Printf("  [%s] %s -> %s\n", d.Type, d.URL, d.Evidence)
+		}
+		fmt.Println("\n--- Nuclei ---")
+		if len(nuclei) == 0 {
+			fmt.Println("  [OK] no template matched")
+		}
+		for _, n := range nuclei {
+			fmt.Printf("  [%s] %s: %s\n", n.Severity, n.Template, n.Evidence)
+		}
+		fmt.Println("\n--- Fuzz (ffuf-style) ---")
+		if len(fuzz) == 0 {
+			fmt.Println("  [OK] no interesting paths")
+		}
+		for _, f := range fuzz {
+			fmt.Printf("  %s -> %d\n", f.Path, f.Status)
+		}
+		fmt.Println("\n--- Takeover ---")
+		if len(takeover) == 0 {
+			fmt.Println("  [OK] no takeover signals")
+		}
+		for _, t := range takeover {
+			fmt.Printf("  [CRITICAL] %s -> %s (%s)\n", t.Host, t.Signal, t.URL)
 		}
 		fmt.Println("\n--- Stack ---")
 		fmt.Printf("  Server: %s\n  Tech: %s\n", stack.Server, strings.Join(stack.Tech, ", "))

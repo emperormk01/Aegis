@@ -1,0 +1,3 @@
+# Nmap 7.93 scan initiated Sun Mar  1 17:50:54 2026 as: nmap -p- -T4 -oN /home/workspace/kambegoye-scan/ports.txt kambegoye.com
+Failed to convert source address to presentation format!?!  Error: Address family not supported by protocol
+QUITTING!
