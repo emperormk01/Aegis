@@ -1,23 +1,23 @@
 # Aegis
 
-Security audit CLI in Go. Combines three repos into one tool:
+Security audit kit in Go, not just a tool. Combines three repos into one kit:
 
 - **bugbounty-findings** - 13 reports, S3 enumeration, race conditions, subdomain takeover, deployment ID and source map disclosure, empty analytics
 - **kambegoye-scan** - Subdomain enumeration, port scanning, sensitive file checks, stack detection, nuclei-style findings
 - **security-research** - OWASP Top 10, frontend and backend vuln research, CVE tracking 2024 to 2026
 
-Single static binary, full corpus embedded.
+Single static binary, full corpus embedded. Aegis is a kit - S3, headers, race, JS secrets, JWT, takeover, nuclei, fuzz, plus searchable corpus - not a single-purpose tool.
 
 ## Install - multiple options
 
 ### Option 1: npm (with binary)
 
 ```bash
-npm install -g @emperormk01/aegis
+npm install -g aegis-kit
 # or without install
-npx @emperormk01/aegis --help
+npx aegis-kit --help
 # or
-bunx @emperormk01/aegis --help
+bunx aegis-kit --help
 ```
 
 ### Option 2: GitHub Releases (single binary)
