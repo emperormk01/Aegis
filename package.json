@@ -1,6 +1,6 @@
 {
-  "name": "Aegis",
-  "version": "0.1.1",
+  "name": "aegis",
+  "version": "0.1.2",
   "description": "Aegis - security audit CLI (Go) - S3, headers, race, JS secrets, JWT, takeover, nuclei, fuzz",
   "bin": {
     "aegis": "./bin/aegis.js"
