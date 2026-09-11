@@ -7,7 +7,7 @@ import (
 	"strings"
 )
 
-//go:embed bugbounty-findings/*.md kambegoye-scan/* security-research/*.md
+//go:embed bugbounty-findings/*.md kambegoye-scan/* security-research/*.md bugbounty-skill/*
 var FS embed.FS
 
 func List() []string {

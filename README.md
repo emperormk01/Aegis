@@ -47,20 +47,27 @@ aegis corpus
 
 **Nuclei templates:**
 - openresty-detect, missing-sri, exposed-server-status, graphql-introspection, cors-misconfig
+- sqli-error, xss-reflected, robots-txt, security-txt, graphql-field-suggestion (from bug-bounty skill)
+
+**JS secrets (Fu-JS technique):**
+- `aegis js <url>` scans same-origin scripts for AWS keys, Google keys, Firebase, JWTs, private keys, hardcoded secrets, plus API endpoint disclosure
+
+**JWT (passive):**
+- `aegis jwt <url>` discovers JWTs in cookies and page bodies, decodes header, flags alg:none (critical) and HS256 notes
 
 **Deeper scan (ffuf-style):**
 - Fuzzes 26 common paths (admin, login, backup, .env.bak, swagger, actuator, etc.)
 
 **Corpus:**
-- 18 files embedded via go:embed, searchable with `aegis explain <keyword>`
+- 21 files embedded via go:embed, searchable with `aegis explain <keyword>` (includes 485KB bug-bounty skill + report guide + recon script)
 
 ## Project structure
 
 ```
-cmd/              # Cobra commands: scan, s3, headers, race, recon, explain, corpus
+cmd/              # Cobra commands: scan, s3, headers, race, recon, explain, corpus, js, jwt
 internal/
-  checks/         # s3, headers, race, recon, takeover, disclosure, nuclei, fuzz
-  corpus/         # Embedded bugbounty + kambegoye + security-research reports
+  checks/         # s3, headers, race, recon, takeover, disclosure, nuclei, fuzz, jssecrets, jwt
+  corpus/         # Embedded bugbounty + kambegoye + security-research + bugbounty-skill reports
 ```
 
 ## License

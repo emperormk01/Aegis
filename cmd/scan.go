@@ -36,12 +36,15 @@ var scanCmd = &cobra.Command{
 		disclosure := checks.CheckDisclosure(url, 8*time.Second)
 		nuclei := checks.RunNuclei(url, 8*time.Second)
 		fuzz := checks.Fuzz(url, 8*time.Second, nil)
+		jssecrets := checks.CheckJSSecrets(url, 10*time.Second)
+		jwt := checks.CheckJWT(url, 8*time.Second)
 
 		if scanJSON {
 			out := map[string]interface{}{
 				"target": target, "headers": hdr, "sensitive": sens,
 				"stack": stack, "subdomains": subs, "ports": ports,
 				"takeover": takeover, "disclosure": disclosure, "nuclei": nuclei, "fuzz": fuzz,
+				"jssecrets": jssecrets, "jwt": jwt,
 			}
 			b, _ := json.MarshalIndent(out, "", "  ")
 			fmt.Println(string(b))
@@ -94,6 +97,26 @@ var scanCmd = &cobra.Command{
 		}
 		for _, f := range fuzz {
 			fmt.Printf("  %s -> %d\n", f.Path, f.Status)
+		}
+		fmt.Println("\n--- JS secrets (Fu-JS) ---")
+		if len(jssecrets) == 0 {
+			fmt.Println("  [OK] no secrets or endpoints in JS")
+		}
+		for _, j := range jssecrets {
+			fmt.Printf("  [%s] %s in %s\n", j.Severity, j.Type, j.File)
+			for _, m := range j.Matches {
+				if len(m) > 80 {
+					m = m[:80] + "..."
+				}
+				fmt.Printf("    - %s\n", m)
+			}
+		}
+		fmt.Println("\n--- JWT ---")
+		if len(jwt.Tokens) == 0 {
+			fmt.Println("  [OK] no JWTs discovered")
+		}
+		for _, t := range jwt.Tokens {
+			fmt.Printf("  [%s] alg=%s via %s: %s\n", t.Severity, t.Alg, t.Source, t.Note)
 		}
 		fmt.Println("\n--- Takeover ---")
 		if len(takeover) == 0 {
