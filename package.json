@@ -1,6 +1,6 @@
 {
-  "name": "@emperormk01/aegis",
-  "version": "0.1.0",
+  "name": "Aegis",
+  "version": "0.1.1",
   "description": "Aegis - security audit CLI (Go) - S3, headers, race, JS secrets, JWT, takeover, nuclei, fuzz",
   "bin": {
     "aegis": "./bin/aegis.js"
@@ -12,7 +12,15 @@
   "scripts": {
     "postinstall": "node install.js"
   },
-  "keywords": ["security", "audit", "bugbounty", "nuclei", "s3", "xss", "sqli"],
+  "keywords": [
+    "security",
+    "audit",
+    "bugbounty",
+    "nuclei",
+    "s3",
+    "xss",
+    "sqli"
+  ],
   "author": "Emperor M.K <emperormk01@gmail.com>",
   "license": "MIT",
   "repository": {
